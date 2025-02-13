@@ -5,16 +5,15 @@ import userRouter from './modules/user/user.route'
 import bicycleRouter from './modules/bicycle/bicycle.route'
 import orderRouter from './modules/order/order.route'
 
-
 const app = express()
 
 // middleware
 app.use(express.json())
 
-app.use('/api/auth', authRouter)
-app.use('/api/user', userRouter)
-app.use('/api/bicycles', bicycleRouter)
-app.use('/api/orders', orderRouter)
+app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/users', userRouter)
+app.use('/api/v1/bicycles', bicycleRouter)
+app.use('/api/v1/orders', orderRouter)
 
 app.get('/', (req: Request, res: Response) => {
   res.send({

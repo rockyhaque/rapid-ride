@@ -90,13 +90,13 @@ An Express application with TypeScript, integrating MongoDB with Mongoose to man
    npm run dev
    ```
 
-## API Endpoints
+## api/v1 Endpoints
 
 ### Bicycles
 
 1. Create a Bicycle
 
-   - Endpoint: `POST /api/bicycles`
+   - Endpoint: `POST /api/v1/bicycles`
    - Request Body:
 
      ```
@@ -116,30 +116,30 @@ An Express application with TypeScript, integrating MongoDB with Mongoose to man
 
 2. Get All Bicycles
 
-   - Endpoint: `GET /api/bicycles`
+   - Endpoint: `GET /api/v1/bicycles`
    - Query: `?searchTerm=type` (optional)
    - Response: A list of all bicycles.
 
 3. Get a Specific Bicycle
 
-   - Endpoint: `GET /api/bicycles/:bicycleId`
+   - Endpoint: `GET /api/v1/bicycles/:bicycleId`
    - Response: Details of the specific bicycle.
 
 4. Update a Bicycle
 
-   - Endpoint: `PUT /api/bicycles/:bicycleId`
+   - Endpoint: `PUT /api/v1/bicycles/:bicycleId`
    - Request Body: Fields to update (e.g., `price`, `quantity`).
    - Response: Success message with updated bicycle details.
 
 5. Delete a Bicycle
-   - Endpoint: `DELETE /api/bicycles/:bicycleId`
+   - Endpoint: `DELETE /api/v1/bicycles/:bicycleId`
    - Response: Success message confirming the deletion.
 
 ### Orders
 
-1.  Place an Order - Endpoint: POST `/api/orders` - Request Body:
+1.  Place an Order - Endpoint: POST `/api/v1/orders` - Request Body:
 
-    - Endpoint: `POST /api/orders`
+    - Endpoint: `POST /api/v1/orders`
     - Request Body:
 
       ```
@@ -154,7 +154,7 @@ An Express application with TypeScript, integrating MongoDB with Mongoose to man
     - Response: Success message with order details.
 
 2.  Calculate Revenue
-    - Endpoint: `GET /api/orders/revenue`
+    - Endpoint: `GET /api/v1/orders/revenue`
     - Response: Total revenue from all orders
 
 ## Error Response Example
