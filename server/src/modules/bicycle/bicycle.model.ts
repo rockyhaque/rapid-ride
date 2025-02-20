@@ -16,7 +16,10 @@ const bicycleSchema = new Schema<IBicycle>(
       required: [true, 'Please provide the bicycle price'],
       min: [0, 'Price must be a positive number'],
     },
-
+    image: {
+      type: String,
+      required: [true, 'Please provide the bicycle image'],
+    },
     type: {
       type: String,
       enum: ['Mountain', 'Road', 'Hybrid', 'BMX', 'Electric'],

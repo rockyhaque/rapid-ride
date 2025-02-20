@@ -10,10 +10,10 @@ const app = express()
 // middleware
 app.use(express.json())
 
-app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/users', userRouter)
-app.use('/api/v1/bicycles', bicycleRouter)
-app.use('/api/v1/orders', orderRouter)
+app.use('/api/auth', authRouter)
+app.use('/api/users', userRouter)
+app.use('/api/bicycles', bicycleRouter)
+app.use('/api/orders', orderRouter)
 
 app.get('/', (req: Request, res: Response) => {
   res.send({
