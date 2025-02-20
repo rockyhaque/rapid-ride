@@ -1,4 +1,5 @@
 import MainLayout from "@/layout/MainLayout";
+import BicyclesPage from "@/pages/BicyclesPage";
 import ErrorPage from "@/pages/common/ErrorPage";
 import Login from "@/pages/common/Login";
 import Register from "@/pages/common/Register";
@@ -15,6 +16,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
+      },
+      {
+        path: "/bicycles",
+        element: <BicyclesPage />,
       },
       {
         path: "/contact",

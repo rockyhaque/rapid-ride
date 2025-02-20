@@ -6,7 +6,7 @@ import logo from "../../assets/logo/nav-logo.png";
 
 const navItems = [
   { name: "Home", href: "/" },
-  { name: "Shop", href: "/shop" },
+  { name: "Bicycles", href: "/bicycles" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
 ];
@@ -26,12 +26,12 @@ export function Navbar() {
             </Link>
           </div>
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
+            <div className="ml-10 flex items-baseline space-x-4 border border-stone-100/60 rounded-xl px-4 py-2 bg-stone-600 bg-opacity-30 backdrop-filter backdrop-blur-lg">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
                     location.pathname === item.href
                       ? "text-orange-400 bg-white bg-opacity-10"
                       : "text-white hover:bg-white hover:bg-opacity-10"

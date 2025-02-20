@@ -4,12 +4,11 @@ import { Outlet } from "react-router-dom";
 
 const MainLayout = () => {
   return (
-    <div>
+    <div className="font-roboto">
       <div>
         <Navbar />
       </div>
-      {/* outlet */}
-      <div>
+      <div >
         <Outlet />
       </div>
       <div>
