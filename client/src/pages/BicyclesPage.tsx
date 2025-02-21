@@ -1,6 +1,6 @@
 import BicycleCard from "@/components/custom/cards/BicycleCard";
 import { Container } from "@/layout/Container";
-import { useGetBicyclesQuery } from "@/redux/features/bicyclesApi";
+
 
 const BicyclesPage = () => {
   const { data: bicycles, isLoading, error } = useGetBicyclesQuery();

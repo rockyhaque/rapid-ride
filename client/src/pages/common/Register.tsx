@@ -2,10 +2,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CustomButton from "@/components/custom/button/CustomButton";
 import registerimg from "../../assets/img/register.jpg";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useSignUpMutation } from "@/redux/features/auth/authApi";
+import { toast } from "sonner";
 
 interface RegisterFormInputs {
   name: string;
@@ -21,8 +23,27 @@ export default function Registration() {
     formState: { errors },
   } = useForm<RegisterFormInputs>();
 
-  const onSubmit: SubmitHandler<RegisterFormInputs> = (data) => {
-    console.log("Form Data:", data);
+  const [signUpUser] = useSignUpMutation();
+  const navigate = useNavigate();
+
+  const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {
+    const userInfo = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      photoURL: data.photoURL,
+    };
+    try {
+      const res = await signUpUser(userInfo).unwrap();
+      if (res.status) {
+        toast.success("User Created Successfully");
+        navigate("/login");
+      } else {
+        toast.error("User creation failed");
+      }
+    } catch {
+      toast.error("An error occurred while signing up");
+    }
   };
 
   return (
@@ -91,7 +112,7 @@ export default function Registration() {
                   </p>
                 )}
                 <Input
-                  id="photo-url"
+                  id="photoURL"
                   type="text"
                   placeholder="Photo URL"
                   {...register("photoURL")}
@@ -121,7 +142,9 @@ export default function Registration() {
                 </Label>
               </div>
 
-              <CustomButton className="w-full">Sign up</CustomButton>
+              <CustomButton type="submit" className="w-full">
+                Sign up
+              </CustomButton>
             </form>
             <div className="text-center mt-4">
               <p className="text-sm text-gray-600 dark:text-gray-400">

@@ -4,8 +4,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import CustomButton from "@/components/custom/button/CustomButton";
 import loginimg from "../../assets/img/login.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useAppDispatch } from "@/redux/hooks";
+import { useLoginMutation } from "@/redux/features/auth/authApi";
+import { verifyToken } from "@/utils/verifyToken";
+import { setUser } from "@/redux/features/auth/authSlice";
 
 interface LoginFormInputs {
   email: string;
@@ -19,8 +23,39 @@ export default function Login() {
     formState: { errors },
   } = useForm<LoginFormInputs>();
 
-  const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
-    console.log("Form Data:", data);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const [login, { data, error, isLoading }] = useLoginMutation();
+
+  const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
+    const loginUserInfo = {
+      email: data.email,
+      password: data.password,
+    };
+    try {
+      const res = await login(loginUserInfo).unwrap();
+
+      console.log(res)
+
+      // Ensure the token exists
+      const token = res?.token;
+      if (!token) {
+        throw new Error("Token is missing from the response.");
+      }
+
+      const user = verifyToken(token);
+      if (!user) {
+        throw new Error("Invalid or expired token.");
+      }
+      dispatch(
+        setUser({
+          user,
+          token,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -99,7 +134,9 @@ export default function Login() {
                   Forgot your password?
                 </div>
               </div>
-              <CustomButton className="w-full">Sign in </CustomButton>
+              <CustomButton type="submit" className="w-full">
+                Sign in{" "}
+              </CustomButton>
             </form>
             <div className="text-center mt-4">
               <p className="text-sm text-gray-600 dark:text-gray-400">
