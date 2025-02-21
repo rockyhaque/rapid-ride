@@ -1,4 +1,5 @@
 import MainLayout from "@/layout/MainLayout";
+import BicycleDetailsPage from "@/pages/BicycleDetailsPage";
 import BicyclesPage from "@/pages/BicyclesPage";
 import ErrorPage from "@/pages/common/ErrorPage";
 import Login from "@/pages/common/Login";
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
       {
         path: "/bicycles",
         element: <BicyclesPage />,
+      },
+      {
+        path: "/bicycles/:id",
+        element: <BicycleDetailsPage />,
       },
       {
         path: "/contact",

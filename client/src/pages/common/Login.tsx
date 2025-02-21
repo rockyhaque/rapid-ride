@@ -10,6 +10,7 @@ import { useAppDispatch } from "@/redux/hooks";
 import { useLoginMutation } from "@/redux/features/auth/authApi";
 import { verifyToken } from "@/utils/verifyToken";
 import { setUser } from "@/redux/features/auth/authSlice";
+import { toast } from "sonner";
 
 interface LoginFormInputs {
   email: string;
@@ -25,7 +26,7 @@ export default function Login() {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [login, { data, error, isLoading }] = useLoginMutation();
+  const [login] = useLoginMutation();
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     const loginUserInfo = {
@@ -35,7 +36,14 @@ export default function Login() {
     try {
       const res = await login(loginUserInfo).unwrap();
 
-      console.log(res)
+      if (res.status) {
+        toast.success("User loggedin Successfull");
+        navigate("/");
+      } else {
+        toast.error("Loggedin failed");
+      }
+
+      // console.log(res)
 
       // Ensure the token exists
       const token = res?.token;
