@@ -3,18 +3,34 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import CustomButton from "@/components/custom/button/CustomButton";
-import logo from "../../assets/logo/nav-logo.png";
+import loginimg from "../../assets/img/login.jpg";
+import { Link } from "react-router-dom";
+import { useForm, SubmitHandler } from "react-hook-form";
 
+interface LoginFormInputs {
+  email: string;
+  password: string;
+}
 
 export default function Login() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormInputs>();
+
+  const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
+    console.log("Form Data:", data);
+  };
+
   return (
     <div className="flex min-h-screen">
       {/* Left side - Image */}
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-slate-900 via-slate-800 to-orange-900 items-center justify-center">
         <img
-          src={logo}
+          src={loginimg}
           alt="Login illustration"
-          className="max-w-md"
+          className="max-w-md rounded-2xl"
         />
       </div>
 
@@ -30,15 +46,48 @@ export default function Login() {
             </p>
           </CardHeader>
           <CardContent>
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <div className="space-y-4">
                 <div>
                   <Label htmlFor="email">Email address</Label>
-                  <Input id="email" type="email" autoComplete="email" required placeholder="Email address" />
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="Email address"
+                    {...register("email", {
+                      required: "Email is required",
+                      pattern: {
+                        value:
+                          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                        message: "Invalid email address",
+                      },
+                    })}
+                  />
+                  {errors.email && (
+                    <p className="text-red-500 text-sm">
+                      {errors.email.message}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <Label htmlFor="password">Password</Label>
-                  <Input id="password" type="password" autoComplete="current-password" required placeholder="Password" />
+                  <Input
+                    id="password"
+                    type="text"
+                    placeholder="Password"
+                    {...register("password", {
+                      required: "Password is required",
+                      minLength: {
+                        value: 6,
+                        message: "Password must be at least 6 characters",
+                      },
+                    })}
+                  />
+                  {errors.password && (
+                    <p className="text-red-500 text-sm">
+                      {errors.password.message}
+                    </p>
+                  )}
                 </div>
               </div>
               <div className="flex items-center justify-between">
@@ -46,8 +95,7 @@ export default function Login() {
                   <Checkbox id="remember-me" />
                   <Label htmlFor="remember-me">Remember me</Label>
                 </div>
-                <div  
- className="text-sm font-medium text-orange-600 hover:text-orange-500 dark:text-orange-400 dark:hover:text-orange-300">
+                <div className="text-sm font-medium text-orange-600 hover:text-orange-500 dark:text-orange-400 dark:hover:text-orange-300">
                   Forgot your password?
                 </div>
               </div>
@@ -55,10 +103,13 @@ export default function Login() {
             </form>
             <div className="text-center mt-4">
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Don't have an account? {" "}
-                <div className="font-medium text-orange-600 hover:text-orange-500 dark:text-orange-400 dark:hover:text-orange-300 cursor-pointer">
+                Don't have an account?{" "}
+                <Link
+                  to="/register"
+                  className="font-medium text-orange-600 hover:text-orange-500 dark:text-orange-400 dark:hover:text-orange-300 cursor-pointer"
+                >
                   Sign up
-                </div>
+                </Link>
               </p>
             </div>
           </CardContent>
