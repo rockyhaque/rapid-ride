@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, User } from "lucide-react";
+import { Menu, X, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "../../assets/logo/nav-logo.png";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "@/redux/hooks";
+import { logout, selectCurrentUser } from "@/redux/features/auth/authSlice";
+import { useGetUserByEmailQuery } from "@/redux/features/user/userManagementApi";
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -11,11 +15,17 @@ const navItems = [
   { name: "Contact", href: "/contact" },
   { name: "Register", href: "/register" },
   { name: "Dashboard", href: "/dashboard" },
+  { name: "My Profile", href: "/my-profile" },
 ];
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const dispatch = useDispatch();
+  const user = useAppSelector(selectCurrentUser);
+
+  // fetch user data
+  const { data: userData } = useGetUserByEmailQuery(user?.email);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg">
@@ -45,17 +55,39 @@ export function Navbar() {
             </div>
           </div>
 
-          {/* User showcase */}
-          <div className="block mr-6 md:mr-0">
-            <Link to="/login">
-              <Button className="relative overflow-hidden px-3 py-3 rounded-lg font-semibold text-white shadow-md transition-all duration-300 bg-gradient-to-r from-orange-500 to-red-500 before:absolute before:inset-0 before:bg-white/10 before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-20 hover:scale-105 hover:shadow-orange-500/50 hover:shadow-lg">
+          {/* User Showcase */}
+          <div className="flex items-center space-x-3">
+            {user && userData?.data.photoURL ? (
+              <img
+                src={userData?.data.photoURL}
+                alt="Profile"
+                className="w-8 h-8 rounded-full object-cover"
+              />
+            ) : (
+              <div></div>
+            )}
+            {user ? (
+              <Button
+                onClick={() => dispatch(logout())}
+                className="relative overflow-hidden px-3 py-3 rounded-lg font-semibold text-white shadow-md transition-all duration-300 bg-gradient-to-r from-red-500 to-rose-500 hover:scale-105 hover:shadow-rose-500/50 hover:shadow-lg"
+              >
                 <div className="relative flex items-center space-x-2">
-                  <User className="h-5 w-5 text-white transition-transform duration-300 group-hover:rotate-12 hidden md:block" />
-                  <span className="pr-2 md:pr-0">Login</span>
+                  <LogOut className="h-5 w-5 text-white transition-transform duration-300 hidden md:block" />
+                  <span className="pr-2 md:pr-0">Logout</span>
                 </div>
               </Button>
-            </Link>
+            ) : (
+              <Link to="/login">
+                <Button className="relative overflow-hidden px-3 py-3 rounded-lg font-semibold text-white shadow-md transition-all duration-300 bg-gradient-to-r from-orange-500 to-red-500 hover:scale-105 hover:shadow-orange-500/50 hover:shadow-lg">
+                  <div className="relative flex items-center space-x-2">
+                    <User className="h-5 w-5 text-white transition-transform duration-300 hidden md:block" />
+                    <span className="pr-2 md:pr-0">Login</span>
+                  </div>
+                </Button>
+              </Link>
+            )}
           </div>
+
           <div className="-mr-2 flex md:hidden">
             <Button
               variant="ghost"

@@ -6,6 +6,7 @@ import ErrorPage from "@/pages/common/ErrorPage";
 import Login from "@/pages/common/Login";
 import Register from "@/pages/common/Register";
 import ContactPage from "@/pages/ContactPage"
+import MyProfile from "@/pages/dashboard/MyProfile";
 import HomePage from "@/pages/HomePage";
 import { createBrowserRouter } from "react-router-dom";
 
@@ -34,7 +35,12 @@ export const router = createBrowserRouter([
       {
         path: "/contact",
         element: <ContactPage />
-      }
+      },
+      {
+        path: "/my-profile",
+        element: <MyProfile />
+      },
+
     ],
   },
   // Auth Routes
