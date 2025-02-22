@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ShoppingCart, User } from "lucide-react";
+import { Menu, X, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "../../assets/logo/nav-logo.png";
 
@@ -9,8 +9,8 @@ const navItems = [
   { name: "Bicycles", href: "/bicycles" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
-  { name: "Login", href: "/login" },
   { name: "Register", href: "/register" },
+  { name: "Dashboard", href: "/dashboard" },
 ];
 
 export function Navbar() {
@@ -44,23 +44,17 @@ export function Navbar() {
               ))}
             </div>
           </div>
-          <div className="hidden md:block">
-            <div className="ml-4 flex items-center md:ml-6">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-white hover:bg-white hover:bg-opacity-10"
-              >
-                <ShoppingCart className="h-5 w-5" />
+
+          {/* User showcase */}
+          <div className="block mr-6 md:mr-0">
+            <Link to="/login">
+              <Button className="relative overflow-hidden px-3 py-3 rounded-lg font-semibold text-white shadow-md transition-all duration-300 bg-gradient-to-r from-orange-500 to-red-500 before:absolute before:inset-0 before:bg-white/10 before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-20 hover:scale-105 hover:shadow-orange-500/50 hover:shadow-lg">
+                <div className="relative flex items-center space-x-2">
+                  <User className="h-5 w-5 text-white transition-transform duration-300 group-hover:rotate-12 hidden md:block" />
+                  <span className="pr-2 md:pr-0">Login</span>
+                </div>
               </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-white hover:bg-white hover:bg-opacity-10"
-              >
-                <User className="h-5 w-5" />
-              </Button>
-            </div>
+            </Link>
           </div>
           <div className="-mr-2 flex md:hidden">
             <Button
