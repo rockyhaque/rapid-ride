@@ -28,7 +28,7 @@ const BicycleCard: React.FC<IBicycle> = ({
         <p className="text-sm text-gray-300 mb-2">{brand}</p>
         <p className="text-sm text-gray-300 mb-4 line-clamp-2">{description}</p>
         <div className="flex items-center justify-between">
-          <span className="text-lg font-bold text-white">${price}</span>
+          <span className="text-lg font-bold text-gray-300">$ <span className="bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent">{price}</span></span>
           <Link to={`${_id}`}>
             <CustomButton>View Details</CustomButton>
           </Link>

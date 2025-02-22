@@ -1,4 +1,5 @@
 import MainLayout from "@/layout/MainLayout";
+import AboutPage from "@/pages/AboutPage";
 import BicycleDetailsPage from "@/pages/BicycleDetailsPage";
 import BicyclesPage from "@/pages/BicyclesPage";
 import ErrorPage from "@/pages/common/ErrorPage";
@@ -17,6 +18,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
+      },
+      {
+        path: "/about",
+        element: <AboutPage />,
       },
       {
         path: "/bicycles",
