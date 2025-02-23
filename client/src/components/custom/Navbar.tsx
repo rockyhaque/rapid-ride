@@ -14,7 +14,6 @@ const navItems = [
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
   { name: "Register", href: "/register" },
-  { name: "Dashboard", href: "/dashboard" },
   { name: "My Profile", href: "/my-profile" },
 ];
 
@@ -26,6 +25,11 @@ export function Navbar() {
 
   // fetch user data
   const { data: userData } = useGetUserByEmailQuery(user?.email);
+
+  // Filter navItems based on user login status
+  const filteredNavItems = user
+    ? [...navItems, { name: "Dashboard", href: "/dashboard" }]
+    : navItems;
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg">
@@ -39,7 +43,7 @@ export function Navbar() {
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4 border border-stone-100/60 rounded-xl px-4 py-2 bg-stone-600 bg-opacity-30 backdrop-filter backdrop-blur-lg">
-              {navItems.map((item) => (
+              {filteredNavItems.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
@@ -109,7 +113,7 @@ export function Navbar() {
       {/* Mobile menu */}
       <div className={`md:hidden ${isOpen ? "block" : "hidden"}`}>
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg">
-          {navItems.map((item) => (
+          {filteredNavItems.map((item) => (
             <Link
               key={item.name}
               to={item.href}

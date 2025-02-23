@@ -1,3 +1,4 @@
+import DashboardLayout from "@/layout/DashboardLayout";
 import MainLayout from "@/layout/MainLayout";
 import AboutPage from "@/pages/AboutPage";
 import BicycleDetailsPage from "@/pages/BicycleDetailsPage";
@@ -5,7 +6,8 @@ import BicyclesPage from "@/pages/BicyclesPage";
 import ErrorPage from "@/pages/common/ErrorPage";
 import Login from "@/pages/common/Login";
 import Register from "@/pages/common/Register";
-import ContactPage from "@/pages/ContactPage"
+import ContactPage from "@/pages/ContactPage";
+import CreateBicycle from "@/pages/dashboard/admin/CreateBicycle";
 import MyProfile from "@/pages/dashboard/MyProfile";
 import HomePage from "@/pages/HomePage";
 import { createBrowserRouter } from "react-router-dom";
@@ -34,13 +36,12 @@ export const router = createBrowserRouter([
       },
       {
         path: "/contact",
-        element: <ContactPage />
+        element: <ContactPage />,
       },
       {
         path: "/my-profile",
-        element: <MyProfile />
+        element: <MyProfile />,
       },
-
     ],
   },
   // Auth Routes
@@ -53,5 +54,19 @@ export const router = createBrowserRouter([
     element: <Register />,
   },
   // Dashboard Routes
-  
+  {
+    path: "/dashboard",
+    element: <DashboardLayout />,
+    children: [
+      {
+        index: true,
+        element: <MyProfile />,
+      },
+      // admin routes
+      {
+        path: "create-bicycle",
+        element: <CreateBicycle />
+      }
+    ],
+  },
 ]);
