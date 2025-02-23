@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { IBicycle } from "@/types/bicycle.type";
 import SectionHeading from "@/components/custom/SectionHeading";
@@ -14,12 +14,33 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import CustomButton from "@/components/custom/button/CustomButton";
+import { useCreateBicycleMutation } from "@/redux/features/product/bicycleManagementApi";
+import { toast } from "sonner";
 
 const CreateBicycle = () => {
   const { register, handleSubmit, control } = useForm<IBicycle>();
+  const [createBicycle] = useCreateBicycleMutation();
 
-  const onSubmit: SubmitHandler<IBicycle> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<IBicycle> = async (data) => {
+    // console.log(data);
+    const bicycleData = {
+      ...data,
+      price: Number(data.price),
+      quantity: Number(data.quantity),
+      inStock: true,
+    };
+
+    try {
+      const res = await createBicycle(bicycleData).unwrap();
+      if (res.status) {
+        toast.success(res.message);
+      } else {
+        toast.error("Something went wrong!");
+      }
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -75,17 +96,11 @@ const CreateBicycle = () => {
               <Label>Description</Label>
               <Textarea {...register("description")} required />
             </div>
-            <div className="flex items-center space-x-2">
+            {/* <div className="flex items-center space-x-2">
               <Controller
                 name="inStock"
                 control={control}
                 render={({ field }) => (
-                  //   <Checkbox
-                  //     checked={field.value}
-                  //     onCheckedChange={field.onChange}
-                  //     className="text-orange-500 focus:ring-orange-500"
-                  //   />
-
                   <input
                     type="checkbox"
                     checked={field.value}
@@ -95,7 +110,7 @@ const CreateBicycle = () => {
                 )}
               />
               <Label>In Stock</Label>
-            </div>
+            </div> */}
             <CustomButton type="submit" className="w-full">
               Submit
             </CustomButton>

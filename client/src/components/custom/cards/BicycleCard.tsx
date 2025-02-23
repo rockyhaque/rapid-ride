@@ -12,7 +12,7 @@ const BicycleCard: React.FC<IBicycle> = ({
   description,
   price,
 }) => {
-  console.log(_id);
+  // console.log(_id);
   return (
     <div className="backdrop-blur-lg bg-white/10 border border-white/10 rounded-xl shadow-lg overflow-hidden transition-all ">
       <div className="relative h-56 w-full">

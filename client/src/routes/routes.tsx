@@ -7,7 +7,9 @@ import ErrorPage from "@/pages/common/ErrorPage";
 import Login from "@/pages/common/Login";
 import Register from "@/pages/common/Register";
 import ContactPage from "@/pages/ContactPage";
+import AllBicycles from "@/pages/dashboard/admin/AllBicycles";
 import CreateBicycle from "@/pages/dashboard/admin/CreateBicycle";
+import ManageUsers from "@/pages/dashboard/admin/ManageUsers";
 import MyProfile from "@/pages/dashboard/MyProfile";
 import HomePage from "@/pages/HomePage";
 import { createBrowserRouter } from "react-router-dom";
@@ -65,8 +67,16 @@ export const router = createBrowserRouter([
       // admin routes
       {
         path: "create-bicycle",
-        element: <CreateBicycle />
-      }
+        element: <CreateBicycle />,
+      },
+      {
+        path: "all-bicycles",
+        element: <AllBicycles />,
+      },
+      {
+        path: "manage-users",
+        element: <ManageUsers />,
+      },
     ],
   },
 ]);

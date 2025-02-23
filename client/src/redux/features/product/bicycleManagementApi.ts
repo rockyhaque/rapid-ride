@@ -2,6 +2,14 @@ import { baseApi } from "../../api/baseApi";
 
 const bicycleManagementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    createBicycle: builder.mutation({
+      query: (bicycleInfo) => ({
+        url: "bicycles/create-bicycle",
+        method: "POST",
+        body: bicycleInfo,
+      }),
+      // invalidatesTags: ['bicycle']
+    }),
     getAllBicycles: builder.query({
       query: () => ({
         url: "/bicycles",
@@ -17,4 +25,5 @@ const bicycleManagementApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllBicyclesQuery, useGetBicycleDetailsQuery } = bicycleManagementApi;
+export const {useCreateBicycleMutation ,useGetAllBicyclesQuery, useGetBicycleDetailsQuery } =
+  bicycleManagementApi;

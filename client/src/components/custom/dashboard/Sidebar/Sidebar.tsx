@@ -2,7 +2,7 @@ import { logout, selectCurrentUser } from "@/redux/features/auth/authSlice";
 import { useGetUserByEmailQuery } from "@/redux/features/user/userManagementApi";
 import { useAppSelector } from "@/redux/hooks";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaUserShield } from "react-icons/fa6";
 import logo from "../../../../assets/logo/logo-with-title.png";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,12 @@ import AdminMenu from "./AdminMenu";
 const Sidebar = () => {
   const dispatch = useDispatch();
   const user = useAppSelector(selectCurrentUser);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/")
+  };
 
   // fetch user data
   const { data: userData } = useGetUserByEmailQuery(user?.email);
@@ -62,10 +68,9 @@ const Sidebar = () => {
       </div>
 
       {/* Logout button */}
-
       <div className="flex justify-evenly items-center my-12 text-gray-300 gap-4">
         <Button
-          onClick={() => dispatch(logout())}
+          onClick={handleLogout}
           className="relative overflow-hidden px-6 py-6 rounded-lg font-semibold text-white shadow-md transition-all duration-300 bg-gradient-to-r from-red-500 to-rose-500 hover:scale-105 hover:shadow-rose-500/50 hover:shadow-lg text-lg"
         >
           <div className="relative flex items-center space-x-2">
