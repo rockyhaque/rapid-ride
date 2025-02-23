@@ -2,46 +2,56 @@ import { baseApi } from "../../api/baseApi";
 
 const usersManagementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    //  Get single user by ID 
+    getAllUsers: builder.query({
+      query: () => ({
+        url: "/users",
+        method: "GET",
+      }),
+      providesTags: ["user"],
+    }),
     getUserById: builder.query({
       query: (id) => ({
         url: `/users/${id}`,
         method: "GET",
       }),
-      // providesTags: ["profile"],
+      providesTags: ["profile"],
     }),
-    // Get single user by Email
     getUserByEmail: builder.query({
       query: (email) => ({
         url: `/users/my-profile/${email}`,
         method: "GET",
       }),
     }),
-
-    //  Update user profile
     updateProfile: builder.mutation({
       query: (args) => ({
         url: `/users/${args.id}`,
-        method: "PUT",
+        method: "PATCH",
         body: args.data,
       }),
-      // invalidatesTags: ["profile"],
+      invalidatesTags: ["profile"],
     }),
-
-    //  Delete user (Fixed)
     deleteUser: builder.mutation({
       query: (id) => ({
         url: `/users/${id}`,
         method: "DELETE",
       }),
-      //   invalidatesTags: ["user"],
+      invalidatesTags: ["user"],
+    }),
+    blockUser: builder.mutation({
+      query: (id) => ({
+        url: `/users/block/${id}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["user"],
     }),
   }),
 });
 
 export const {
+  useGetAllUsersQuery,
   useGetUserByIdQuery,
   useGetUserByEmailQuery,
   useUpdateProfileMutation,
   useDeleteUserMutation,
+  useBlockUserMutation
 } = usersManagementApi;
