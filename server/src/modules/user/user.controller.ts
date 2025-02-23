@@ -8,12 +8,21 @@ import catchAsync from '../../utils/catchAsync'
 
 const createUser = catchAsync(async (req, res) => {
   const payload = req.body
-
   const result = await userService.createUser(payload)
-
   sendResponse(res, {
     statusCode: StatusCodes.CREATED,
     message: 'User has been created',
+    data: result,
+  })
+})
+
+const getMyProfile = catchAsync(async (req, res) => {
+  const {email} = req.params
+  // console.log(email)
+  const result = await userService.getMyProfile(email)
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    message: 'My Profile is getting succesfully',
     data: result,
   })
 })
@@ -71,6 +80,7 @@ const blockUser = catchAsync(async (req, res) => {
 
 export const userController = {
   createUser,
+  getMyProfile,
   getUser,
   getSingleUser,
   updateUser,

@@ -4,7 +4,7 @@ export interface IUser {
     role: 'customer' | 'admin'
     email: string
     password: string
-    photo?: string | null
+    photoURL?: string | null
     userStatus: 'active' | 'inactive'
     isBlocked: boolean
   }

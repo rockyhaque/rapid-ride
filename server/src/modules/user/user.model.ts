@@ -31,7 +31,9 @@ const userSchema = new Schema<IUser>(
       required: [true, 'Please provide your password'],
       select: false, // hide password from select query [applied when hash]
     },
-    photo: String,
+    photoURL:{
+      type: String
+    },
     role: {
       type: String,
       enum: {

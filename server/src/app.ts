@@ -1,3 +1,5 @@
+import cookieParser from 'cookie-parser';
+import cors from 'cors'
 import express, { Request, Response } from 'express'
 import { globalErrorHandler } from './middlewares/globalErrorHandler'
 import authRouter from './modules/auth/auth.route'
@@ -9,6 +11,8 @@ const app = express()
 
 // middleware
 app.use(express.json())
+app.use(cookieParser());
+app.use(cors({ origin: ['http://localhost:5173','http://localhost:5174'] ,credentials:true}))
 
 app.use('/api/auth', authRouter)
 app.use('/api/users', userRouter)

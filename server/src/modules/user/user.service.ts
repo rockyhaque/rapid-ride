@@ -17,6 +17,13 @@ const getSingleUser = async (id: string) => {
   return result
 }
 
+const getMyProfile = async (email: string) => {
+  // console.log(email)
+  const result = await User.findOne({email})
+  return result;
+}
+
+
 const updateUser = async (id: string, data: IUser) => {
   const result = await User.findByIdAndUpdate(id, data, {
     new: true,
@@ -50,6 +57,7 @@ const blockUser = async (userId: string) => {
 
 export const userService = {
   createUser,
+  getMyProfile,
   getUsers,
   getSingleUser,
   updateUser,

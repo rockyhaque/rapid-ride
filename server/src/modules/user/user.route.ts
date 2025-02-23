@@ -14,7 +14,8 @@ userRouter.post(
   )
 
 userRouter.get('/:userId', userController.getSingleUser)
-userRouter.put('/:userId', userController.updateUser)
+userRouter.get('/my-profile/:email', userController.getMyProfile)
+userRouter.patch('/:userId', userController.updateUser)
 userRouter.delete('/:userId', userController.deleteUser)
 userRouter.get('/', userController.getUser)
 
