@@ -3,10 +3,8 @@ import catchAsync from '../utils/catchAsync'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import User from '../modules/user/user.model'
 
-
 const auth = (...requiredRole: string[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-
     // * Get token from header without Bearer
     // const token = req.headers.authorization
     // if (!token) {
@@ -14,29 +12,29 @@ const auth = (...requiredRole: string[]) => {
     // }
 
     // * Get token from header with Bearer
-    const authHeader = req.headers.authorization;
+    const authHeader = req.headers.authorization
 
     if (!authHeader) {
       throw new Error('You are not authorized')
     }
 
-    if(!authHeader.startsWith('Bearer')) {
-      throw new Error('Invalid token format. Use Bearer <token>');
+    if (!authHeader.startsWith('Bearer')) {
+      throw new Error('Invalid token format. Use Bearer <token>')
     }
 
-    const token = authHeader.split(' ')[1];
+    const token = authHeader.split(' ')[1]
     // const token = authHeader.slice(7).trim();
-    
+
     // console.log(token)
 
     // Verify the token
-    const decoded = jwt.verify(token, "secret") as JwtPayload;
+    const decoded = jwt.verify(token, 'secret') as JwtPayload
 
     // console.log(decoded)
 
-    const {email, role} = decoded;
+    const { email, role } = decoded
 
-    const user = await User.findOne({email})
+    const user = await User.findOne({ email })
 
     if (!user) {
       throw new Error('User not found')
@@ -46,7 +44,7 @@ const auth = (...requiredRole: string[]) => {
     //   throw new Error('You are not authorized')
     // }
 
-    if(requiredRole && !requiredRole.includes(role)) {
+    if (requiredRole && !requiredRole.includes(role)) {
       throw new Error('You are not authorized')
     }
 
@@ -55,10 +53,7 @@ const auth = (...requiredRole: string[]) => {
     // console.log("decoded", decoded)
 
     next()
-
   })
-
-  
 }
 
 export default auth

@@ -1,7 +1,7 @@
 import { model, Schema } from 'mongoose'
 import { IUser } from './user.interface'
-import bcrypt from 'bcrypt'
-import config from '../../config'
+// import bcrypt from 'bcrypt'
+// import config from '../../config'
 
 const userSchema = new Schema<IUser>(
   {
@@ -61,20 +61,48 @@ const userSchema = new Schema<IUser>(
 
 
 //* hashing password
-userSchema.pre('save', async function (next) {
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
-  const user = this
-  user.password = await bcrypt.hash(
-    user.password,
-    Number(config.bcrypt_salt_rounds)
-  )
-  next()
-})
+// userSchema.pre('save', async function (next) {
+//   // eslint-disable-next-line @typescript-eslint/no-this-alias
+//   const user = this
+//   user.password = await bcrypt.hash(
+//     user.password,
+//     Number(config.bcrypt_salt_rounds)
+//   )
+//   next()
+// })
 
-userSchema.post('save', function (doc, next) {
-  doc.password = ''
-  next()
-})
+//* not working
+// userSchema.pre('save', async function (next) {
+//   const user = this;
+
+//   console.log('User object before saving:', user);
+
+//   if (user.password) {
+//     try {
+//       const saltRounds = Number(config.bcrypt_salt_rounds); // Ensure the number is being passed
+//       if (isNaN(saltRounds)) {
+//         throw new Error("Salt rounds are not a valid number");
+//       }
+
+//       user.password = await bcrypt.hash(user.password, saltRounds);
+//       next();
+//     } catch (error) {
+//       next(error);  // Pass error to next middleware
+//     }
+//   } else {
+//     console.log('Password not provided');
+//     next(new Error('Password is required'));
+//   }
+// });
+
+
+
+
+
+// userSchema.post('save', function (doc, next) {
+//   doc.password = ''
+//   next()
+// })
 
 const User = model<IUser>('User', userSchema)
 

@@ -2,7 +2,7 @@ import { Router } from "express";
 import { userValidation } from "./user.validation";
 import { userController } from "./user.controller";
 import validateRequest from "../../middlewares/validateRequest";
-import auth from "../../middlewares/auth";
+// import auth from "../../middlewares/auth";
 
 
 const userRouter = Router()
@@ -20,6 +20,6 @@ userRouter.delete('/:userId', userController.deleteUser)
 userRouter.get('/', userController.getUser)
 
 // Admin routes
-userRouter.patch('/:userId/block', auth("admin"), userController.blockUser)
+userRouter.patch('/block/:userId', userController.blockUser)
 
 export default userRouter;
