@@ -61,7 +61,7 @@ const AllBicycles = () => {
     try {
       const res = await updateBicycle({
         id: selectedBicycle._id,
-        data: formData, // Submit formData directly
+        data: formData, 
       }).unwrap();
       if (res.status) {
         toast.success("Bicycle updated successfully!");
@@ -83,6 +83,7 @@ const AllBicycles = () => {
     setValue("image", bicycle.image);
     setValue("description", bicycle.description);
     setValue("type", bicycle.type);
+    setValue("inStock", bicycle.inStock)
   };
 
   // Delete
@@ -233,6 +234,24 @@ const AllBicycles = () => {
                             )}
                           />
                         </div>
+                        <div className="flex items-center space-x-2">
+                          <Controller
+                            name="inStock"
+                            control={control}
+                            render={({ field }) => (
+                              <input
+                                type="checkbox"
+                                checked={field.value} 
+                                onChange={(e) =>
+                                  field.onChange(e.target.checked)
+                                } 
+                                className="text-orange-500 focus:ring-orange-500"
+                              />
+                            )}
+                          />
+                          <Label>In Stock</Label>
+                        </div>
+
                         <CustomButton
                           onClick={handleSubmit(handleUpdateSubmit)}
                           className="w-full"
