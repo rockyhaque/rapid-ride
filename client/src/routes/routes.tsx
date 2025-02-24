@@ -8,6 +8,7 @@ import Login from "@/pages/common/Login";
 import Register from "@/pages/common/Register";
 import ContactPage from "@/pages/ContactPage";
 import AllBicycles from "@/pages/dashboard/admin/AllBicycles";
+import AllOrders from "@/pages/dashboard/admin/AllOrders";
 import CreateBicycle from "@/pages/dashboard/admin/CreateBicycle";
 import ManageUsers from "@/pages/dashboard/admin/ManageUsers";
 import Checkout from "@/pages/dashboard/customer/Checkout";
@@ -78,6 +79,10 @@ export const router = createBrowserRouter([
       {
         path: "manage-users",
         element: <ManageUsers />,
+      },
+      {
+        path: "all-orders",
+        element: <AllOrders />,
       },
       // Cutomer routes
       {
