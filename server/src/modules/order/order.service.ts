@@ -38,7 +38,7 @@ const deleteOrder = async(id: string) => {
 }
 
 const myOrder = async(email: string) => {
-  const result = await Order.findOne({email})
+  const result = await Order.find({email})
   return result
 }
 

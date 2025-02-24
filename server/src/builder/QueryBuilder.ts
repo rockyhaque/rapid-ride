@@ -37,7 +37,7 @@ class QueryBuilder<T> {
     excludedFields.forEach((el) => delete queryObj[el])
 
     // Handle filter logic dynamically for allowed fields
-    const allowedFilters = ['brand', 'type', 'price', 'inStock']
+    const allowedFilters = ['type', 'price', 'inStock']
     const filterQuery: Record<string, unknown> = {}
 
     allowedFilters.forEach((field) => {
@@ -46,7 +46,8 @@ class QueryBuilder<T> {
       }
     })
 
-    this.modelQuery = this.modelQuery.find(queryObj)
+    // this.modelQuery = this.modelQuery.find(queryObj)
+    this.modelQuery = this.modelQuery.find(filterQuery)
 
     return this
   }
