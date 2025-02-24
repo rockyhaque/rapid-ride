@@ -13,7 +13,6 @@ const navItems = [
   { name: "All Bicycles", href: "/bicycles" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
-  { name: "Register", href: "/register" },
   { name: "My Profile", href: "/my-profile" },
 ];
 

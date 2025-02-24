@@ -59,7 +59,7 @@ const MyOrders = () => {
       {userLoading || ordersLoading ? (
         <Skeleton className="w-full h-20" />
       ) : orders?.data?.length > 0 ? (
-        <Table className="mt-6 shadow-md rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-gray-900  ">
+        <Table className="mt-6 shadow-md rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-gray-900">
           <TableHeader>
             <TableRow className="text-white hover:bg-gray-800">
               <TableHead className="p-4">#</TableHead>
@@ -72,7 +72,7 @@ const MyOrders = () => {
           </TableHeader>
           <TableBody>
             {orders?.data?.map((order: IOrder, index: number) => (
-              <TableRow key={order._id} className="border-b hover:bg-gray-700">
+              <TableRow key={order._id} className="border-b text-white hover:bg-gray-700">
                 <TableCell className="p-4">{index + 1}</TableCell>
                 <TableCell>{order.bicycle}</TableCell>
                 <TableCell>{order.email}</TableCell>

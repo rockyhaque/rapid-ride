@@ -2,7 +2,7 @@ import CustomButton from "@/components/custom/button/CustomButton";
 import LoadingSpinner from "@/components/custom/shared/LoadingSpinner";
 import { Container } from "@/layout/Container";
 import { useGetBicycleDetailsQuery } from "@/redux/features/product/bicycleManagementApi";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const BicycleDetailsPage = () => {
   const { id } = useParams();
@@ -54,9 +54,11 @@ const BicycleDetailsPage = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center mt-10">
-          <CustomButton className="w-1/5">Buy Now</CustomButton>
-        </div>
+        <Link to={`${bicycle?._id}`}>
+          <div className="flex justify-center mt-10">
+            <CustomButton className="w-1/5">Buy Now</CustomButton>
+          </div>
+        </Link>
       </Container>
     </div>
   );
