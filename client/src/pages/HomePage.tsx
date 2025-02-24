@@ -1,11 +1,13 @@
-import FeaturedCorner from "@/components/custom/FeaturedCorner";
+import HighlightCorner from "@/components/custom/HighlightCorner";
 import HeroSection from "@/components/custom/HeroSection";
+import FeaturedBicycles from "@/components/custom/FeaturedBicycles";
 
 const HomePage = () => {
   return (
     <div>
       <HeroSection />
-      <FeaturedCorner />
+      <FeaturedBicycles />
+      <HighlightCorner />
     </div>
   );
 };

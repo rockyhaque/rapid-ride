@@ -8,6 +8,7 @@ import logo from "../../../../assets/logo/logo-with-title.png";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import AdminMenu from "./AdminMenu";
+import CustomerMenu from "./CustomerMenu";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const Sidebar = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate("/")
+    navigate("/");
   };
 
   // fetch user data
@@ -64,6 +65,7 @@ const Sidebar = () => {
           {/* <MenuItem label="Statistics" address="/dashboard" icon={BsGraphUp} /> */}
 
           {userData?.data.role === "admin" && <AdminMenu />}
+          {userData?.data.role === "customer" && <CustomerMenu />}
         </ul>
       </div>
 

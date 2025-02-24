@@ -4,10 +4,10 @@ import { Badge } from "@/components/ui/badge";
 import { Container } from "@/layout/Container";
 import SectionHeading from "./SectionHeading";
 
-const FeaturedCorner = () => {
+const HighlightCorner = () => {
   return (
     <div className="bg-slate-900 text-white py-10">
-      <SectionHeading heading="Featured Corner" />
+      <SectionHeading heading="Highlight Corner" />
       <Container>
         <div className="mt-16 grid gap-6 md:grid-cols-3">
           <Card className="bg-white/10 p-6">
@@ -93,4 +93,4 @@ const FeaturedCorner = () => {
   );
 };
 
-export default FeaturedCorner;
+export default HighlightCorner;

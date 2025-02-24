@@ -10,7 +10,7 @@ import { useGetUserByEmailQuery } from "@/redux/features/user/userManagementApi"
 
 const navItems = [
   { name: "Home", href: "/" },
-  { name: "Bicycles", href: "/bicycles" },
+  { name: "All Bicycles", href: "/bicycles" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
   { name: "Register", href: "/register" },

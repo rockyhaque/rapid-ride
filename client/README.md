@@ -16,3 +16,21 @@ https://i.ibb.co/QcjbGs5/tofan-teodor-Kjht-Jp7-Rh3-E-unsplash.jpg
 https://i.ibb.co/Zx8HTV2/harry-pappas-xyaui-SBWRFs-unsplash.jpg
 https://i.ibb.co/tMK85PF/rodney-gainous-jr-p-VF71muh-Rs-unsplash.jpg
 https://i.ibb.co/Z1q8wdz/jordan-whitfield-Wj-Uy3-NY95y-U-unsplash.jpg
+
+Cutomer Credential
+
+```
+customer@gmail.com
+```
+```
+hello123
+```
+
+Admin Credential
+
+```
+dizaba@mailinator.com
+```
+```
+123456
+```

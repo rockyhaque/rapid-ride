@@ -10,6 +10,8 @@ import ContactPage from "@/pages/ContactPage";
 import AllBicycles from "@/pages/dashboard/admin/AllBicycles";
 import CreateBicycle from "@/pages/dashboard/admin/CreateBicycle";
 import ManageUsers from "@/pages/dashboard/admin/ManageUsers";
+import Checkout from "@/pages/dashboard/customer/Checkout";
+import MyOrders from "@/pages/dashboard/customer/MyOrders";
 import MyProfile from "@/pages/dashboard/MyProfile";
 import HomePage from "@/pages/HomePage";
 import { createBrowserRouter } from "react-router-dom";
@@ -77,6 +79,15 @@ export const router = createBrowserRouter([
         path: "manage-users",
         element: <ManageUsers />,
       },
+      // Cutomer routes
+      {
+        path: "my-orders",
+        element: <MyOrders />,
+      },
+      {
+        path: "checkout",
+        element: <Checkout />
+      }
     ],
   },
 ]);
