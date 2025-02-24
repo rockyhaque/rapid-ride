@@ -11,15 +11,23 @@ const bicycleManagementApi = baseApi.injectEndpoints({
       invalidatesTags: ['bicycle']
     }),
     //* previous
-    getAllBicycles: builder.query({
-      query: () => ({
-        url: "/bicycles",
-        method: "GET",
-      }),
-      providesTags: ['bicycle']
-    }),
+    // getAllBicycles: builder.query({
+    //   query: () => ({
+    //     url: "/bicycles",
+    //     method: "GET",
+    //   }),
+    //   providesTags: ['bicycle']
+    // }),
 
     //* using search and filter
+    getAllBicycles: builder.query({
+      query: (params: Record<string, unknown>) => ({
+        url: "/bicycles",
+        method: "GET",
+        params, // Passing query parameters to the backend
+      }),
+      providesTags: ['bicycle'],
+    }),
 
     getBicycleDetails: builder.query({
       query: (id) => ({
