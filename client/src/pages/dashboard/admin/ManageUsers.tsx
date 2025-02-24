@@ -17,7 +17,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {
-  useBlockUserMutation,
   useDeleteUserMutation,
   useGetAllUsersQuery,
 } from "@/redux/features/user/userManagementApi";
@@ -28,7 +27,7 @@ const ManageUsers = () => {
   const { data: response, isLoading } = useGetAllUsersQuery(undefined);
   const users = response?.data || [];
   const [deleteUser] = useDeleteUserMutation();
-  const [blockUser] = useBlockUserMutation();
+  // const [blockUser] = useBlockUserMutation();
 
   console.log(users);
 
@@ -40,10 +39,10 @@ const ManageUsers = () => {
     setOpenDialog(false);
   };
 
-  const handleBlock = (id: string) => {
-    blockUser(id);
-    setOpenDialog(false);
-  };
+  // const handleBlock = (id: string) => {
+  //   blockUser(id);
+  //   setOpenDialog(false);
+  // };
 
   const openConfirmDialog = (id: string) => {
     setSelectedUserId(id);
@@ -122,12 +121,12 @@ const ManageUsers = () => {
               <Button color="red" onClick={() => handleDelete(selectedUserId)}>
                 Delete
               </Button>
-              <Button
+              {/* <Button
                 color="yellow"
                 onClick={() => handleBlock(selectedUserId)}
               >
                 Block
-              </Button>
+              </Button> */}
             </DialogFooter>
           </DialogContent>
         </Dialog>

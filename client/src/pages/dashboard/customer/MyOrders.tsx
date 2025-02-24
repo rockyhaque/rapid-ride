@@ -1,5 +1,8 @@
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
-import { useDeleteOrderMutation, useGetMyOrderQuery } from "@/redux/features/product/orderManagementApi";
+import {
+  useDeleteOrderMutation,
+  useGetMyOrderQuery,
+} from "@/redux/features/product/orderManagementApi";
 import { useGetUserByEmailQuery } from "@/redux/features/user/userManagementApi";
 import { useAppSelector } from "@/redux/hooks";
 import {
@@ -34,14 +37,14 @@ const MyOrders = () => {
   const email = userData?.data?.email;
 
   const { data: orders, isLoading: ordersLoading } = useGetMyOrderQuery(email);
-//   console.log(orders);
+  //   console.log(orders);
 
-const [deleteOrder] = useDeleteOrderMutation();
+  const [deleteOrder] = useDeleteOrderMutation();
 
-const [selectedOrder, setSelectedOrder] = useState<string | null>(null);
-const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState<string | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-const handleDelete = async () => {
+  const handleDelete = async () => {
     if (selectedOrder) {
       await deleteOrder(selectedOrder);
       setSelectedOrder(null);
@@ -56,15 +59,15 @@ const handleDelete = async () => {
       {userLoading || ordersLoading ? (
         <Skeleton className="w-full h-20" />
       ) : orders?.data?.length > 0 ? (
-        <Table className="mt-6 bg-white shadow-md rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-gray-900  ">
+        <Table className="mt-6 shadow-md rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-gray-900  ">
           <TableHeader>
-            <TableRow className="bg-gray-900 text-white hover:bg-gray-800">
+            <TableRow className="text-white hover:bg-gray-800">
               <TableHead className="p-4">#</TableHead>
               <TableHead>ID</TableHead>
               <TableHead>Email</TableHead>
               <TableHead>Total Price</TableHead>
               <TableHead>Quantity</TableHead>
-              <TableHead>Delete</TableHead>
+              <TableHead>Cancle</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -88,18 +91,27 @@ const handleDelete = async () => {
                         }}
                       />
                     </DialogTrigger>
-                    <DialogContent>
+                    <DialogContent className="bg-slate-800 ">
                       <DialogHeader>
-                        <DialogTitle>Are you absolutely sure?</DialogTitle>
-                        <DialogDescription>
-                          This action cannot be undone. This will permanently delete your order.
+                        <DialogTitle className="text-gray-200">
+                          Are you absolutely sure?
+                        </DialogTitle>
+                        <DialogDescription className="text-gray-300">
+                          This action cannot be undone. This will permanently
+                          delete your order.
                         </DialogDescription>
                       </DialogHeader>
                       <div className="flex justify-end space-x-2">
-                        <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
+                        <Button
+                          variant="outline"
+                          onClick={() => setIsDialogOpen(false)}
+                        >
                           Cancel
                         </Button>
-                        <Button className="bg-rose-600 hover:bg-rose-700" onClick={handleDelete}>
+                        <Button
+                          className="bg-rose-600 hover:bg-rose-700"
+                          onClick={handleDelete}
+                        >
                           Delete
                         </Button>
                       </div>

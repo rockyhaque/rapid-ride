@@ -14,6 +14,7 @@ const orderManagementApi = baseApi.injectEndpoints({
         url: `/orders/my-order/${email}`,
         method: "GET",
       }),
+      providesTags: ["order"]
     }),
     deleteOrder: builder.mutation({
       query: (id) => ({
