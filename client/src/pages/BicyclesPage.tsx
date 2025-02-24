@@ -1,7 +1,13 @@
 import { useState } from "react";
-import { Input } from "@/components/ui/input"; 
-import { Button } from "@/components/ui/button"; 
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"; 
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 import BicycleCard from "@/components/custom/cards/BicycleCard";
 import LoadingSpinner from "@/components/custom/shared/LoadingSpinner";
 import { Container } from "@/layout/Container";
@@ -27,7 +33,11 @@ const BicyclesPage = () => {
   if (filters.inStock) queryParams.inStock = filters.inStock === "true"; // Convert string to boolean
 
   // Fetch bicycles with query parameters
-  const { data: bicycles, isLoading, refetch } = useGetAllBicyclesQuery(queryParams);
+  const {
+    data: bicycles,
+    isLoading,
+    refetch,
+  } = useGetAllBicyclesQuery(queryParams);
 
   // Handle search input change
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,7 +62,7 @@ const BicyclesPage = () => {
 
   if (isLoading) return <LoadingSpinner />;
 
-  // console.log("Bicycles Data:", bicycles); 
+  // console.log("Bicycles Data:", bicycles);
 
   return (
     <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 min-h-screen px-6 py-24">
@@ -70,21 +80,46 @@ const BicyclesPage = () => {
         </div>
 
         {/* Filters */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-2 gap-4 mb-8">
           <Select onValueChange={(value) => handleFilterChange("type", value)}>
-            <SelectTrigger>
-              <SelectValue placeholder="Type" />
+            <SelectTrigger className="text-white placeholder:text-slate-300">
+              <SelectValue
+                className="text-white placeholder:text-slate-300"
+                placeholder="Type"
+              />
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Mountain">Mountain</SelectItem>
-              <SelectItem value="Road">Road</SelectItem>
-              <SelectItem value="Hybrid">Hybrid</SelectItem>
-              <SelectItem value="BMX">BMX</SelectItem>
-              <SelectItem value="Electric">Electric</SelectItem>
+            <SelectContent className="text-white bg-slate-800">
+              <SelectItem
+                className="text-white hover:bg-slate-700"
+                value="Mountain"
+              >
+                Mountain
+              </SelectItem>
+              <SelectItem
+                className="text-white hover:bg-slate-700"
+                value="Road"
+              >
+                Road
+              </SelectItem>
+              <SelectItem
+                className="text-white hover:bg-slate-700"
+                value="Hybrid"
+              >
+                Hybrid
+              </SelectItem>
+              <SelectItem className="text-white hover:bg-slate-700" value="BMX">
+                BMX
+              </SelectItem>
+              <SelectItem
+                className="text-white hover:bg-slate-700"
+                value="Electric"
+              >
+                Electric
+              </SelectItem>
             </SelectContent>
           </Select>
 
-          <Select onValueChange={(value) => handleFilterChange("price", value)}>
+          {/* <Select onValueChange={(value) => handleFilterChange("price", value)}>
             <SelectTrigger>
               <SelectValue placeholder="Price" />
             </SelectTrigger>
@@ -93,11 +128,13 @@ const BicyclesPage = () => {
               <SelectItem value="500-1000">$500 - $1000</SelectItem>
               <SelectItem value="1000+">$1000+</SelectItem>
             </SelectContent>
-          </Select>
+          </Select> */}
 
-          <Select onValueChange={(value) => handleFilterChange("inStock", value)}>
-            <SelectTrigger>
-              <SelectValue placeholder="In Stock" />
+          <Select
+            onValueChange={(value) => handleFilterChange("inStock", value)}
+          >
+            <SelectTrigger className="text-white placeholder:text-slate-300">
+              <SelectValue placeholder="In Stock" className="text-white placeholder:text-slate-300" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="true">In Stock</SelectItem>
