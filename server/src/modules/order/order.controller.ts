@@ -1,36 +1,18 @@
 import { Request, Response } from 'express'
 import { orderService } from './order.service'
+import catchAsync from '../../utils/catchAsync'
+import sendResponse from '../../utils/sendResponse'
+import { StatusCodes } from 'http-status-codes'
 
-const createOrder = async (req: Request, res: Response): Promise<void> => {
-  try {
-    const orderData = req.body
-    const newOrder = await orderService.createOrder(orderData)
 
-    res.status(201).json({
-      message: 'Order created successfully',
-      status: true,
-      data: newOrder,
-    })
-  } catch (error: unknown) {
-    let statusCode = 400
-
-    let errorMessage = 'Something went wrong'
-    if (error instanceof Error) {
-      errorMessage = error.message
-      if (error.message === 'bicycle not found') {
-        statusCode = 404
-      } else if (error.message === 'Insufficient stock') {
-        statusCode = 422
-      }
-    }
-
-    res.status(statusCode).json({
-      message: errorMessage,
-      status: false,
-      error: error instanceof Error ? error.name : 'Unknown Error',
-    })
-  }
-}
+const createOrder = catchAsync(async(req, res) => {
+  const result = await orderService.createOrder(req.body)
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    message: 'Order created succesfully',
+    data: result,
+  })
+})
 
 const calculateRevenue = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -50,66 +32,39 @@ const calculateRevenue = async (req: Request, res: Response): Promise<void> => {
   }
 }
 
-//* Get all orders
-// const getAllOrders = async (req: Request, res: Response): Promise<void> => {
-//   try {
-//     const orders = await orderService.getAllOrders();
-//     res.status(200).json({ status: true, data: orders });
-//   } catch (error: unknown) {
-//     res.status(500).json({
-//       message: 'Failed to retrieve orders',
-//       status: false,
-//     });
-//   }
-// };
+const getAllOrders = catchAsync(async(req, res) => {
+  const result = await orderService.getAllOrders();
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    message: 'Orders are getting succesfully',
+    data: result,
+  })
+});
 
-//* Get a single order by ID
-// const getOrderById = async (req: Request, res: Response): Promise<void> => {
-//   try {
-//     const orderId = req.params.id;
-//     const order = await orderService.getOrderById(orderId);
-//     if (!order) {
-//       res.status(404).json({ message: 'Order not found', status: false });
-//       return;
-//     }
-//     res.status(200).json({ status: true, data: order });
-//   } catch (error: unknown) {
-//     res.status(500).json({ message: 'Failed to retrieve order', status: false });
-//   }
-// };
+const deleteOrder = catchAsync(async(req, res) => {
+  const orderId = req.params.orderId
+  await orderService.deleteOrder(orderId)
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    message: "Order deleted succesfully",
+    data: {}
+  })
+})
 
-//* Update an order
-// const updateOrder = async (req: Request, res: Response): Promise<void> => {
-//   try {
-//     const orderId = req.params.id;
-//     const updatedData = req.body;
-//     const updatedOrder = await orderService.updateOrder(orderId, updatedData);
-//     if (!updatedOrder) {
-//       res.status(404).json({ message: 'Order not found', status: false });
-//       return;
-//     }
-//     res.status(200).json({ message: 'Order updated successfully', status: true, data: updatedOrder });
-//   } catch (error: unknown) {
-//     res.status(400).json({ message: 'Failed to update order', status: false });
-//   }
-// };
-
-//* Delete an order
-// const deleteOrder = async (req: Request, res: Response): Promise<void> => {
-//   try {
-//     const orderId = req.params.id;
-//     const deletedOrder = await orderService.deleteOrder(orderId);
-//     if (!deletedOrder) {
-//       res.status(404).json({ message: 'Order not found', status: false });
-//       return;
-//     }
-//     res.status(200).json({ message: 'Order deleted successfully', status: true });
-//   } catch (error: unknown) {
-//     res.status(500).json({ message: 'Failed to delete order', status: false });
-//   }
-// };
+const myOrder = catchAsync(async (req, res) => {
+  const {email} = req.params
+  const result = await orderService.myOrder(email);
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    message: 'My Order is getting successfully',
+    data: result
+  })
+})
 
 export const orderController = {
   createOrder,
+  getAllOrders,
+  deleteOrder,
+  myOrder,
   calculateRevenue,
 }
