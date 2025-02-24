@@ -10,6 +10,7 @@ const bicycleManagementApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['bicycle']
     }),
+    //* previous
     getAllBicycles: builder.query({
       query: () => ({
         url: "/bicycles",
@@ -17,6 +18,9 @@ const bicycleManagementApi = baseApi.injectEndpoints({
       }),
       providesTags: ['bicycle']
     }),
+
+    //* using search and filter
+
     getBicycleDetails: builder.query({
       query: (id) => ({
         url: `/bicycles/${id}`,

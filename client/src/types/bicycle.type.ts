@@ -9,3 +9,11 @@ export interface IBicycle {
   quantity: number;
   inStock: boolean;
 }
+
+export type FilterState = {
+  search: string;
+  brand: string;
+  type: string;
+  price: string;
+  inStock: boolean;
+};
