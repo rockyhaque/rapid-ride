@@ -22,6 +22,7 @@ const bicycleManagementApi = baseApi.injectEndpoints({
         url: `/bicycles/${id}`,
         method: "GET",
       }),
+      providesTags: ['bicycle']
     }),
     updateBicycle: builder.mutation({
       query: (args) => ({
