@@ -54,7 +54,7 @@ const BicycleDetailsPage = () => {
             </div>
           </div>
         </div>
-        <Link to={`${bicycle?._id}`}>
+        <Link to={`/dashboard/checkout/${bicycle?._id}`}>
           <div className="flex justify-center mt-10">
             <CustomButton className="w-1/5">Buy Now</CustomButton>
           </div>
