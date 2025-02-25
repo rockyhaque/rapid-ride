@@ -2,7 +2,7 @@
 
 An Express application with TypeScript, integrating MongoDB with Mongoose to manage a Bicycle Store. Ensure data integrity using Mongoose schema validation.
 
-> Live Link ➡️ https://bi-cycle-elite.vercel.app
+> Live Link ➡️ https://rapid-ride-server.vercel.app
 
 ## Features
 
