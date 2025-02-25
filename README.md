@@ -4,6 +4,8 @@
 
 The Bicycle Store Application is a responsive web application designed to provide users with a seamless experience for browsing, purchasing, and managing bicycles. The application includes features such as user registration and authentication, product management, order processing, and payment integration. The goal is to create a user-friendly, secure, and visually appealing platform for both customers and administrators.
 
+> Live Site -> https://rapid-ride-rho.vercel.app
+
 ## Credentials
 
 > Admin Access 👇🏻
