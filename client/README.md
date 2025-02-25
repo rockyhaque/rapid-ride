@@ -6,6 +6,8 @@ The Bicycle Store Application is a responsive web application designed to provid
 
 > Live Site -> https://rapid-ride-rho.vercel.app
 
+> presentaion -> https://drive.google.com/file/d/1nMGlDQrr-t_oPG3IQGCKULNtHRJGzNXl/view?usp=sharing
+
 ## Credentials
 
 > Admin Access 👇🏻
