@@ -17,6 +17,8 @@ import CustomButton from "@/components/custom/button/CustomButton";
 import { Badge } from "@/components/ui/badge";
 import { useCreateOrderMutation } from "@/redux/features/product/orderManagementApi";
 import { toast } from "sonner";
+import { useAppSelector } from "@/redux/hooks";
+import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 
 interface FormValues {
   fullName: string;
@@ -27,6 +29,8 @@ interface FormValues {
 }
 
 const Checkout: React.FC = () => {
+  const user = useAppSelector(selectCurrentUser);
+  console.log(user?.email);
   const { id } = useParams();
   const { data, isLoading } = useGetBicycleDetailsQuery(id);
   const [createOrder, { isLoading: isSubmitting }] = useCreateOrderMutation();
@@ -35,7 +39,7 @@ const Checkout: React.FC = () => {
     defaultValues: {
       fullName: "",
       address: "",
-      email: "",
+      email: user?.email || "",
       phone: "",
       note: "",
     },
@@ -97,7 +101,7 @@ const Checkout: React.FC = () => {
 
   const onSubmit = async (values: FormValues) => {
     const orderData = {
-      email: values.email,
+      email: user?.email,
       bicycle: bicycle._id,
       quantity,
       totalPrice,
@@ -119,6 +123,7 @@ const Checkout: React.FC = () => {
         // Correctly access checkout_url
         const checkoutUrl = response?.data?.payment?.checkout_url;
         console.log("Checkout URL:", checkoutUrl);
+        console.log("test", response?.data?.payment?.checkout_url);
 
         if (checkoutUrl) {
           // Redirect to the checkout URL
@@ -181,6 +186,7 @@ const Checkout: React.FC = () => {
                   <Input
                     placeholder="Enter your email"
                     type="email"
+                    defaultValue={user?.email}
                     {...register("email", { required: "Email is required" })}
                   />
                 </FormControl>
@@ -192,7 +198,7 @@ const Checkout: React.FC = () => {
                 <FormControl>
                   <Input
                     placeholder="Enter your phone number"
-                    type="tel"
+                    type="number"
                     {...register("phone", { required: "Phone is required" })}
                   />
                 </FormControl>
@@ -236,6 +242,10 @@ const Checkout: React.FC = () => {
                 <span className="font-semibold">Price:</span> ${bicycle?.price}
               </p>
               <p className="text-lg">
+                <span className="font-semibold">Available Stock:</span>{" "}
+                {bicycle?.quantity}
+              </p>
+              <p className="text-lg">
                 <span className="font-semibold">Stock:</span>{" "}
                 {bicycle?.inStock ? "In Stock" : "Out of Stock"}
               </p>
@@ -254,11 +264,13 @@ const Checkout: React.FC = () => {
                   </Button>
                   <span className="text-lg">{quantity}</span>
                   <Button
-                    onClick={() =>
-                      setQuantity((prev) =>
-                        Math.min(bicycle?.quantity, prev + 1)
-                      )
-                    }
+                    onClick={() => {
+                      if (quantity < bicycle?.quantity) {
+                        setQuantity((prev) => prev + 1);
+                      } else {
+                        toast.error("Quantity exceeds available stock");
+                      }
+                    }}
                     className="border hover:bg-teal-700 text-white px-3 py-1 rounded-md"
                   >
                     +
