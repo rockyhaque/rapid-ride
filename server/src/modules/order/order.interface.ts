@@ -7,6 +7,6 @@ export interface IOrder {
   totalPrice: number
   status?: string
   address?: string;
-  contact?: string;
+  contact?: number;
   orderNote?:string;
 }
