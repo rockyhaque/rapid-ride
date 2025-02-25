@@ -39,19 +39,19 @@ const Sidebar = () => {
                 <div className="flex items-center space-x-4 p-2">
                   <img
                     className="h-12 rounded-full"
-                    src={userData?.data.photoURL}
+                    src={userData?.data?.photoURL}
                     referrerPolicy="no-referrer"
                     alt="User Profile"
                   />
                   <div>
                     <h4 className="font-semibold text-lg text-gray-200  ">
-                      {userData?.data.name}
+                      {userData?.data?.name}
                     </h4>
                     <span className="text-sm flex items-center space-x-1">
                       <FaUserShield className="text-gray-300" />
                       <span className="text-gray-300 pl-1">
-                        {userData?.data.role.charAt(0).toUpperCase() +
-                          userData?.data.role.slice(1).toLowerCase()}
+                        {userData?.data?.role.charAt(0).toUpperCase() +
+                          userData?.data?.role.slice(1).toLowerCase()}
                       </span>
                     </span>
                   </div>
@@ -64,8 +64,8 @@ const Sidebar = () => {
         <ul className="space-y-2 text-sm">
           {/* <MenuItem label="Statistics" address="/dashboard" icon={BsGraphUp} /> */}
 
-          {userData?.data.role === "admin" && <AdminMenu />}
-          {userData?.data.role === "customer" && <CustomerMenu />}
+          {userData?.data?.role === "admin" && <AdminMenu />}
+          {userData?.data?.role === "customer" && <CustomerMenu />}
         </ul>
       </div>
 
