@@ -5,4 +5,8 @@ export interface IOrder {
   bicycle: Types.ObjectId
   quantity: number
   totalPrice: number
+  status?: string
+  address?: string;
+  contact?: string;
+  orderNote?:string;
 }

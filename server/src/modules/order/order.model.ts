@@ -20,6 +20,20 @@ const orderSchema = new Schema(
       type: Number,
       required: true,
     },
+    status: {
+      type: String,
+      enum: ['Pending', 'Cancelled', 'Delivered'],
+      default: 'Pending',
+    },
+    contact: {
+      type: Number,
+    },
+    address: {
+      type: String,
+    },
+    orderNote: {
+      type: String,
+    },
   },
   {
     timestamps: true,
