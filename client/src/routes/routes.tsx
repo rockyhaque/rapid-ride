@@ -16,6 +16,7 @@ import MyOrders from "@/pages/dashboard/customer/MyOrders";
 import MyProfile from "@/pages/dashboard/MyProfile";
 import HomePage from "@/pages/HomePage";
 import { createBrowserRouter } from "react-router-dom";
+import PaymentConfirmation from "@/pages/dashboard/customer/PaymentConfirmation";
 
 export const router = createBrowserRouter([
   {
@@ -92,6 +93,10 @@ export const router = createBrowserRouter([
       {
         path: "checkout/:id",
         element: <Checkout />
+      },
+      {
+        path: "payment-confirmation",
+        element: <PaymentConfirmation />
       }
     ],
   },
