@@ -13,7 +13,6 @@ const navItems = [
   { name: "All Bicycles", href: "/bicycles" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
-  { name: "My Profile", href: "/my-profile" },
 ];
 
 export function Navbar() {
@@ -27,7 +26,11 @@ export function Navbar() {
 
   // Filter navItems based on user login status
   const filteredNavItems = user
-    ? [...navItems, { name: "Dashboard", href: "/dashboard" }]
+    ? [
+        ...navItems,
+        { name: "Dashboard", href: "/dashboard" },
+        { name: "My Profile", href: "/my-profile" },
+      ]
     : navItems;
 
   return (

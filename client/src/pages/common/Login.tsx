@@ -36,14 +36,12 @@ export default function Login() {
     try {
       const res = await login(loginUserInfo).unwrap();
 
-      if (res.status) {
-        toast.success("User loggedin Successfull");
-        navigate("/");
-      } else {
-        toast.error("Loggedin failed");
-      }
-
       // console.log(res)
+
+      if (!res.status) {
+        toast.error(res.message || "Login failed");
+        return;
+      }
 
       // Ensure the token exists
       const token = res?.token;
@@ -61,8 +59,13 @@ export default function Login() {
           token,
         })
       );
-    } catch (error) {
+      toast.success("User loggedin Successfull");
+      navigate("/");
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       console.log(error);
+      toast.error(error?.data?.message || "An unexpected error occurred");
     }
   };
 

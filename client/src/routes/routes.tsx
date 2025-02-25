@@ -17,6 +17,7 @@ import MyProfile from "@/pages/dashboard/MyProfile";
 import HomePage from "@/pages/HomePage";
 import { createBrowserRouter } from "react-router-dom";
 import PaymentConfirmation from "@/pages/dashboard/customer/PaymentConfirmation";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -71,33 +72,49 @@ export const router = createBrowserRouter([
       // admin routes
       {
         path: "create-bicycle",
-        element: <CreateBicycle />,
+        element: (
+          <PrivateRoute role="admin">
+            <CreateBicycle />
+          </PrivateRoute>
+        ),
       },
       {
         path: "all-bicycles",
-        element: <AllBicycles />,
+        element: (
+          <PrivateRoute role="admin">
+            <AllBicycles />
+          </PrivateRoute>
+        ),
       },
       {
         path: "manage-users",
-        element: <ManageUsers />,
+        element: (
+          <PrivateRoute role="admin">
+            <ManageUsers />
+          </PrivateRoute>
+        ),
       },
       {
         path: "all-orders",
-        element: <AllOrders />,
+        element: (
+          <PrivateRoute role="admin">
+            <AllOrders />
+          </PrivateRoute>
+        ),
       },
       // Cutomer routes
       {
         path: "my-orders",
-        element: <MyOrders />,
+        element: <PrivateRoute role="customer"><MyOrders /></PrivateRoute> ,
       },
       {
         path: "checkout/:id",
-        element: <Checkout />
+        element: <PrivateRoute role="customer"><Checkout /></PrivateRoute> ,
       },
       {
         path: "payment-confirmation",
-        element: <PaymentConfirmation />
-      }
+        element: <PrivateRoute role="customer"><PaymentConfirmation /></PrivateRoute> ,
+      },
     ],
   },
 ]);
