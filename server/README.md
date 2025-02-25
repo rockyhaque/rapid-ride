@@ -1,4 +1,4 @@
-# Bi-Cycle Store Management System
+# Rapid Ride - A Bicycle Store Backend
 
 An Express application with TypeScript, integrating MongoDB with Mongoose to manage a Bicycle Store. Ensure data integrity using Mongoose schema validation.
 
@@ -39,16 +39,11 @@ An Express application with TypeScript, integrating MongoDB with Mongoose to man
 
 ## Tech Stack
 
-- **Frontend:** Not included in this project (can be integrated later).
 - **Backend:** Node.js, Express.js, TypeScript.
 - **Database:** MongoDB with Mongoose.
 - **Other Tools:** ESLint, Prettier, Nodemon
 
 ## Getting Started
-
-### Project Structure
-
-![Code Example](https://i.ibb.co.com/XtTT1DJ/carbon-4.png)
 
 ### Prerequisites
 
@@ -56,156 +51,42 @@ An Express application with TypeScript, integrating MongoDB with Mongoose to man
 - MongoDB (running instance locally or in the cloud)
 - Git
 
-## Installation
+## Setup Instructions
 
-1. Clone the Repository
-
-   ```
-   https://github.com/rockyhaque/bi-cycle-store-server
-   ```
+1. Clone the Repository:
 
    ```
-   cd bicycle-order-management
+   https://github.com/rockyhaque/rapid-ride
    ```
 
-2. Install Dependencies
+2. Change Directory & npm installation
 
    ```
-   npm install
+   cd server
+   npm i
    ```
 
-3. Set Up Environment Variables Create a `.env` file in the root directory and include the following:
+3. Set Up Environment Variables on `server`
 
    ```
+   NODE_ENV=development
    PORT=5000
+   DATABASE_URL= <your mongodb url>
+   BCRYPT_SALT_ROUNDS=8
    ```
 
-   ```
-   MONGO_URI=mongodb://localhost:27017
-   ```
-
-4. Run the Application Start the server in development mode:
-
+4. Run the Application (client & server):
    ```
    npm run dev
    ```
+5. Access the Application:
 
-## api Endpoints
-
-### Bicycles
-
-1. Create a Bicycle
-
-   - Endpoint: `POST /api/bicycles`
-   - Request Body:
-
-     ```
-     {
-        "name": "Trail Blazer 2000",
-        "brand": "TrailMasters",
-        "price": 300,
-        "type": "Mountain",
-        "description": "A durable mountain bike built for rugged trails and outdoor adventures.",
-        "quantity": 15,
-        "inStock": true
-     }
-
-     ```
-
-   - Response: Success message with created bicycle details.
-
-2. Get All Bicycles
-
-   - Endpoint: `GET /api/bicycles`
-   - Query: `?searchTerm=type` (optional)
-   - Response: A list of all bicycles.
-
-3. Get a Specific Bicycle
-
-   - Endpoint: `GET /api/bicycles/:bicycleId`
-   - Response: Details of the specific bicycle.
-
-4. Update a Bicycle
-
-   - Endpoint: `PUT /api/bicycles/:bicycleId`
-   - Request Body: Fields to update (e.g., `price`, `quantity`).
-   - Response: Success message with updated bicycle details.
-
-5. Delete a Bicycle
-   - Endpoint: `DELETE /api/bicycles/:bicycleId`
-   - Response: Success message confirming the deletion.
-
-### Orders
-
-1.  Place an Order - Endpoint: POST `/api/orders` - Request Body:
-
-    - Endpoint: `POST /api/orders`
-    - Request Body:
-
-      ```
-      {
-      "email": "customer@example.com",
-      "bicycle": "648a45e5f0123c45678d9012",
-      "quantity": 2,
-      "totalPrice": 600
-      }
-      ```
-
-    - Response: Success message with order details.
-
-2.  Calculate Revenue
-    - Endpoint: `GET /api/orders/revenue`
-    - Response: Total revenue from all orders
-
-## Error Response Example
-
-### Validation Error
-
-```
-{
-  "message": "Validation failed",
-  "success": false,
-  "error": {
-    "name": "ValidationError",
-    "errors": {
-      "price": {
-        "message": "Price must be a positive number",
-        "type": "min",
-        "value": -10
-      }
-    }
-  }
-}
-
-```
-
-### Resource Not Found
-
-```
-{
-  "message": "Bicycle not found",
-  "success": false,
-  "error": "ResourceNotFound"
-}
-```
-
-## Contributing
-
-1. Fork the repository.
-2. Create a new branch:
+   Open your browser and navigate to for `server`
 
    ```
-   git checkout -b feature-name
+   http://localhost:5000
    ```
 
-3. Commit and push changes:
-   ```
-   git commit -m "Add feature-name"
-   ```
-   ```
-   git push origin feature-name
-   ```
-4. Open a pull request.
 
 ## Contact
 
