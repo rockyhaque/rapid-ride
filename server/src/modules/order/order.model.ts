@@ -22,8 +22,8 @@ const orderSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ['Pending', 'Cancelled', 'Delivered'],
-      default: 'Pending',
+      enum: ['pending', 'cancelled', 'delivered'],
+      default: 'pending',
     },
     contact: {
       type: Number,
