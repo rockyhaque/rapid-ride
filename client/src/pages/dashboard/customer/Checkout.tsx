@@ -15,6 +15,8 @@ import { useState } from "react";
 import SectionHeading from "@/components/custom/SectionHeading";
 import CustomButton from "@/components/custom/button/CustomButton";
 import { Badge } from "@/components/ui/badge";
+import { useCreateOrderMutation } from "@/redux/features/product/orderManagementApi";
+import { toast } from "sonner";
 
 interface FormValues {
   fullName: string;
@@ -27,8 +29,8 @@ interface FormValues {
 const Checkout: React.FC = () => {
   const { id } = useParams();
   const { data, isLoading } = useGetBicycleDetailsQuery(id);
+  const [createOrder, { isLoading: isSubmitting }] = useCreateOrderMutation();
 
-  // Initialize the form unconditionally
   const methods = useForm<FormValues>({
     defaultValues: {
       fullName: "",
@@ -43,20 +45,97 @@ const Checkout: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = methods;
-
-  // State for selected quantity
   const [quantity, setQuantity] = useState(1);
 
-  // Calculate total price
   const bicycle = data?.data;
   const totalPrice = bicycle ? bicycle.price * quantity : 0;
 
-  const onSubmit = (values: FormValues) => {
-    console.log("Customer Info:", values);
-    console.log("Bicycle Details:", bicycle);
-    console.log("Selected Quantity:", quantity);
-    console.log("Total Price:", totalPrice);
+  // const onSubmit = async (values: FormValues) => {
+  //   const orderData = {
+  //     email: values.email,
+  //     bicycle: bicycle._id,
+  //     quantity,
+  //     totalPrice,
+  //     address: values.address,
+  //     contact: values.phone,
+  //     orderNote: values.note,
+  //     status: "pending",
+  //   };
+
+  //   try {
+  //     const response = await createOrder(orderData).unwrap();
+  //     if (response?.status) {
+  //       toast.success(response?.data?.message);
+  //       console.log("Order Created:", response);
+
+  //       // Log the entire response to verify structure
+  //       console.log("Full Response:", response);
+
+  //       // Ensure checkout_url is defined
+  //       const checkoutUrl = response?.data?.data?.payment?.checkout_url;
+  //       console.log("Checkout URL:", checkoutUrl);
+
+  //       if (checkoutUrl) {
+  //         // Redirect to the checkout URL
+  //         window.location.href = checkoutUrl;
+  //       } else {
+  //         console.error("Checkout URL is undefined!");
+  //         toast.error("Failed to generate checkout URL. Please try again.");
+  //       }
+
+  //       reset();
+  //     } else {
+  //       toast.error(response?.data?.message);
+  //       console.error("Order Creation Failed:", response);
+  //     }
+  //   } catch (error) {
+  //     console.error("Order Creation Failed:", error);
+  //   }
+  // };
+
+  const onSubmit = async (values: FormValues) => {
+    const orderData = {
+      email: values.email,
+      bicycle: bicycle._id,
+      quantity,
+      totalPrice,
+      address: values.address,
+      contact: values.phone,
+      orderNote: values.note,
+      status: "pending",
+    };
+
+    try {
+      const response = await createOrder(orderData).unwrap();
+      if (response?.status) {
+        toast.success(response?.message);
+        console.log("Order Created:", response);
+
+        // Log the entire response data to verify structure
+        console.log("Response Data:", response.data);
+
+        // Correctly access checkout_url
+        const checkoutUrl = response?.data?.payment?.checkout_url;
+        console.log("Checkout URL:", checkoutUrl);
+
+        if (checkoutUrl) {
+          // Redirect to the checkout URL
+          window.location.href = checkoutUrl;
+        } else {
+          console.error("Checkout URL is undefined!");
+          toast.error("Failed to generate checkout URL. Please try again.");
+        }
+
+        reset();
+      } else {
+        toast.error(response?.message);
+        console.error("Order Creation Failed:", response);
+      }
+    } catch (error) {
+      console.error("Order Creation Failed:", error);
+    }
   };
 
   if (isLoading) return <LoadingSpinner />;
@@ -64,7 +143,7 @@ const Checkout: React.FC = () => {
   return (
     <FormProvider {...methods}>
       <div className="max-w-7xl mx-auto p-6 bg-gray-900 rounded-lg shadow-lg">
-        <SectionHeading heading="Checkout"/>
+        <SectionHeading heading="Checkout" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Customer Info Section */}
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
@@ -132,11 +211,8 @@ const Checkout: React.FC = () => {
                 </FormControl>
               </FormItem>
 
-              <CustomButton
-                type="submit"
-                className="w-full "
-              >
-                Continue to Payment
+              <CustomButton type="submit" className="w-full">
+                {isSubmitting ? "Placing Order..." : "Continue to Payment"}
               </CustomButton>
             </form>
           </div>
@@ -147,21 +223,23 @@ const Checkout: React.FC = () => {
             <div className="space-y-4">
               <div className="flex justify-center">
                 <img
-                  src={bicycle.image}
-                  alt={bicycle.name}
+                  src={bicycle?.image}
+                  alt={bicycle?.name}
                   className="rounded-lg shadow-lg h-40 w-64 object-cover"
                 />
               </div>
               <p className="text-lg">
-                <span className="font-semibold">Type:</span> <Badge>{bicycle.type}</Badge> 
+                <span className="font-semibold">Type:</span>{" "}
+                <Badge>{bicycle?.type}</Badge>
               </p>
               <p className="text-lg">
-                <span className="font-semibold">Price:</span> ${bicycle.price}
+                <span className="font-semibold">Price:</span> ${bicycle?.price}
               </p>
               <p className="text-lg">
                 <span className="font-semibold">Stock:</span>{" "}
-                {bicycle.inStock ? "In Stock" : "Out of Stock"}
+                {bicycle?.inStock ? "In Stock" : "Out of Stock"}
               </p>
+
               {/* Quantity Selector */}
               <div className="flex items-center space-x-4">
                 <p className="text-lg">
@@ -169,7 +247,7 @@ const Checkout: React.FC = () => {
                 </p>
                 <div className="flex items-center space-x-2">
                   <Button
-                    onClick={() => setQuantity((prev) => Math.max(1, prev - 1))} // Decrease quantity (minimum 1)
+                    onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
                     className="border hover:bg-rose-700 text-white px-3 py-1 rounded-md"
                   >
                     -
@@ -178,9 +256,9 @@ const Checkout: React.FC = () => {
                   <Button
                     onClick={() =>
                       setQuantity((prev) =>
-                        Math.min(bicycle.quantity, prev + 1)
+                        Math.min(bicycle?.quantity, prev + 1)
                       )
-                    } // Increase quantity (maximum available stock)
+                    }
                     className="border hover:bg-teal-700 text-white px-3 py-1 rounded-md"
                   >
                     +
