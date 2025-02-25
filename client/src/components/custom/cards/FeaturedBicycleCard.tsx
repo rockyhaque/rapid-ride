@@ -3,7 +3,7 @@ import CustomButton from "../button/CustomButton";
 import { IBicycle } from "@/types/bicycle.type";
 import { Link } from "react-router-dom";
 
-const BicycleCard: React.FC<IBicycle> = ({
+const FeaturedBicycleCard: React.FC<IBicycle> = ({
   _id,
   name,
   image,
@@ -29,7 +29,7 @@ const BicycleCard: React.FC<IBicycle> = ({
         <p className="text-sm text-gray-300 mb-4 line-clamp-2">{description}</p>
         <div className="flex items-center justify-between">
           <span className="text-lg font-bold text-gray-300">$ <span className="bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent">{price}</span></span>
-          <Link to={`${_id}`}>
+          <Link to={`bicycles/${_id}`}>
             <CustomButton>View Details</CustomButton>
           </Link>
         </div>
@@ -38,4 +38,4 @@ const BicycleCard: React.FC<IBicycle> = ({
   );
 };
 
-export default BicycleCard;
+export default FeaturedBicycleCard;
