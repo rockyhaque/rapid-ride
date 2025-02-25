@@ -32,16 +32,34 @@ hello123
 
 ## Features
 
-`User Authentication:` Users can register with their name, email, and password. Passwords are securely hashed before storage.
+### User Management
 
+- `User Authentication:` Users can register with their name, email, and password. Passwords are securely hashed before storage.
+- `User Role:` Customers can view their order history and manage their profiles.
+- `Admin Role:` Admins can manage products, view orders, and oversee platform activities.
+- `JWT Token Management:` JSON Web Tokens are used for secure authentication and session management.
+- `Logout:` Users can log out, which removes the token from local storage and redirects them to the login page.
 
-`User Role:` Customers can view their order history and manage their profiles.
+### Payment Integration
 
-`Admin Role:` Admins can manage products, view orders, and oversee platform activities.
+- `Secure Payment Processing:` Payment gateway integration for safe and seamless transactions.
 
-`JWT Token Management:` JSON Web Tokens are used for secure authentication and session management.
+### Bicycle Management
+- Add new bicycles with details like name, brand, price, type, and availability.
+- Retrieve all bicycles or filter using search terms (e.g., type, brand, name).
+- View details of a specific bicycle by its ID.
+- Update bicycle information such as price, quantity, or stock status.
+- Delete a bicycle from the inventory.
 
-`Logout:` Users can log out, which removes the token from local storage and redirects them to the login page.
+### Order Management
+- Place orders for bicycles with email, bicycle details, quantity, and total price.
+- Validate stock availability before order creation.
+- Automatically reduce inventory when an order is placed.
+
+### Inventory Management
+- Update bicycle inventory dynamically.
+- Mark a bicycle as out of stock when the quantity reaches zero.
+- Handle insufficient stock scenarios with proper error message
 
 ## Technology Stack
 
@@ -50,7 +68,7 @@ hello123
 - TypeScript
 - React
 - Redux
-- RTK Query for efficient data management.
+- RTK Query 
 
 ### Backend
 - Node.js
@@ -58,6 +76,23 @@ hello123
 - MongoDB
 - Mongoose
 - JWT for authentication.
+
+### Demo Hosted Image URL
+
+> Bicycle Images 👇🏻
+
+- https://i.ibb.co.com/sp29hfgP/patrick-hendry-1ow9zrlld-JU-unsplash.jpg
+- https://i.ibb.co.com/CKJFnMcJ/timotheus-frobel-YDyw-GFCr-P3g-unsplash.jpg
+- https://i.ibb.co.com/pvVZHW0L/jacek-dylag-gi-Fe-Tsh-EYYQ-unsplash.jpg
+- https://i.ibb.co.com/RpVpTm86/jonny-kennaugh-n-POtzv-GLYW0-unsplash.jpg
+
+- https://i.ibb.co.com/XkkZcB1Y/didier-weemaels-4yfdgmbg-BWU-unsplash.jpg
+- https://i.ibb.co.com/Q3J8Tv9K/howard-bouchevereau-BRDO4-C-0h-s-unsplash.jpg
+- https://i.ibb.co.com/N2HByzdK/jannik-wuster-Veusc6z31-Y-unsplash.jpg
+- https://i.ibb.co.com/39R4fZ9M/patrick-hendry-OZh-OBP-fao-unsplash.jpg
+- https://i.ibb.co.com/kVZ9Hzkn/will-gonzalez-u-AK3j-Jr6md4-unsplash.jpg
+- https://i.ibb.co.com/ytn4fK0/aditya-wardhana-LFv9v-VBLmw-M-unsplash.jpg
+- https://i.ibb.co.com/hxs9wb2H/daman-singh-1-Rh-Ec-Ngr-YEI-unsplash.jpg
 
 ## Setup Instructions
 1. Clone the Repository:
