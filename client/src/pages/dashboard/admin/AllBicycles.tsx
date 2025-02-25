@@ -40,7 +40,7 @@ import {
 } from "@/components/ui/select";
 
 const AllBicycles = () => {
-  const { data: bicycles, isLoading } = useGetAllBicyclesQuery(undefined);
+  const { data: bicycles, isLoading } = useGetAllBicyclesQuery({});
   const [updateBicycle] = useUpdateBicycleMutation();
   const [deleteBicycle] = useDeleteBicycleMutation();
   const [selectedBicycle, setSelectedBicycle] = useState<IBicycle | null>(null);
